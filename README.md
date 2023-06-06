@@ -1,2 +1,2 @@
 # projector
-Bash script that build module tree of project and send content of source files to gist
+Bash script that build module tree of a project and send content of Go source files to gist.
