@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Your GitHub Token
-TOKEN=$($GH_TOKEN)
+echo "Enter your GitHub Token"
+read TOKEN
 
 # API Endpoint
 GIST_API="https://api.github.com/gists"
@@ -26,3 +27,8 @@ done < <(find $DIR \( -name '*.go' -o -name '*.md' -o -name '*.yaml' \) ! -name 
 
 # Creating Gist
 curl -H "Authorization: token $TOKEN" -X POST -d "$JSON_OBJECT" "$GIST_API"
+
+# Creating Gist and getting response
+RESPONSE=$(curl -H "Authorization: token $TOKEN" -X POST -d "$JSON_OBJECT" "$GIST_API")
+# Extracting and printing raw URLs
+echo "$RESPONSE" | jq -r '.files[] | .raw_url' >> output_links.ignore
